@@ -1,4 +1,4 @@
-package fr.izeleam.utils.kcommand;
+package fr.izeleam.utils.kcommand.utils;
 
 public class SingleMap<K, V> {
 

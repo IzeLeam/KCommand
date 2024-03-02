@@ -1,17 +1,24 @@
 package fr.izeleam.utils.kcommand;
 
-import org.bukkit.plugin.java.JavaPlugin;
+import java.util.List;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
 
-public final class KCommand extends JavaPlugin {
+public class KCommand extends Command {
 
-    @Override
-    public void onEnable() {
-        // Plugin startup logic
+  private final TabExecutor handle;
 
-    }
+  public KCommand(final String name, final TabExecutor handle) {
+    super(name);
+    this.handle = handle;
+  }
 
-    @Override
-    public void onDisable() {
-        // Plugin shutdown logic
-    }
+  public boolean execute(final CommandSender commandSender, final String label, final String[] args) {
+    return this.handle.onCommand(commandSender, this, label, args);
+  }
+
+  public List<String> tabComplete(final CommandSender commandSender, final String label, final String[] args) {
+    return this.handle.onTabComplete(commandSender, this, label, args);
+  }
 }

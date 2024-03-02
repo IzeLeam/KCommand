@@ -1,4 +1,4 @@
-package fr.izeleam.utils.kcommand;
+package fr.izeleam.utils.kcommand.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
