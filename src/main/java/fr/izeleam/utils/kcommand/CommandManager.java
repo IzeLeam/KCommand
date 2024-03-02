@@ -86,16 +86,20 @@ public class CommandManager implements TabExecutor {
         final Type genericReturnType = method.getGenericReturnType();
 
         Validate.isTrue(genericReturnType instanceof ParameterizedType,
-            "Error occurred while registering tab complete method for " + tabComplete.name()[0] + " command");
+            "The method " + method.getName() + " must return a List<String> for the " + tabComplete.name()[0] + " command");
 
         final ParameterizedType parameterizedType = (ParameterizedType) genericReturnType;
 
         Validate.isTrue(parameterizedType.getRawType() == List.class,
-            "Error occurred while registering tab complete method for " + tabComplete.name()[0] + " command");
+            "The method " + method.getName() + " must return a List<String> for the " + tabComplete.name()[0] + " command");
         Validate.isTrue(parameterizedType.getActualTypeArguments().length == 1,
-            "Error occurred while registering tab complete method for " + tabComplete.name()[0] + " command");
+            "The method " + method.getName() + " must return a List<String> for the " + tabComplete.name()[0] + " command");
         Validate.isTrue(parameterizedType.getActualTypeArguments()[0] == String.class,
-            "Error occurred while registering tab complete method for " + tabComplete.name()[0] + " command");
+            "The method " + method.getName() + " must return a List<String> for the " + tabComplete.name()[0] + " command");
+
+        Class<?> clazz = method.getParameterTypes()[0];
+
+        Validate.isTrue(clazz.equals(Player.class), "The first argument of the method " + method.getName() + " must be of the type Player");
 
         for (final String cmd : tabComplete.name()) {
           this.tabCompletes.put(cmd, new SingleMap<>(object, method));
@@ -104,7 +108,7 @@ public class CommandManager implements TabExecutor {
     }
   }
 
-  public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
+  public boolean onCommand(final CommandSender sender, final Command command, final String label, final String[] args) {
     for (int i = args.length; i >= 0; --i) {
       final StringBuilder sb = new StringBuilder();
       sb.append(label.toLowerCase());
@@ -113,10 +117,10 @@ public class CommandManager implements TabExecutor {
         sb.append(".").append(args[x].toLowerCase());
       }
 
-      final String cmdLabel = sb.toString();
-      if (this.commands.containsKey(cmdLabel)) {
-        final Method method = this.commands.get(cmdLabel).getValue();
-        final Object methodObject = this.commands.get(cmdLabel).getKey();
+      final String cmd = sb.toString();
+      if (this.commands.containsKey(cmd)) {
+        final Method method = this.commands.get(cmd).getValue();
+        final Object methodObject = this.commands.get(cmd).getKey();
         return this.executeCommand(i, sender, method, methodObject, args);
       }
     }
