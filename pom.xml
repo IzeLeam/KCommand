@@ -17,6 +17,8 @@
   </properties>
 
   <build>
+    <defaultGoal>clean install</defaultGoal>
+    <finalName>KCommand</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
