@@ -10,4 +10,4 @@ Welcome to KCommand, a simple annotation-based command management for Bukkit plu
 
 ## Usage
 
-See the exemple in the 'example' package: [ExampleCommand.java]
+See the exemple in this class: [PluginExample.java]
