@@ -10,7 +10,7 @@ Welcome to KCommand, a simple annotation-based command management for Bukkit plu
 
 ## Usage
 
-See the exemple in this class: [a link](https://github.com/IzeLeam/KCommand/blob/master/src/main/java/fr/izeleam/utils/kcommand/exemples/PluginCommand.java)
+See the exemple in [this class](https://github.com/IzeLeam/KCommand/blob/master/src/main/java/fr/izeleam/utils/kcommand/exemples/PluginCommand.java)
 
 ## Project structure
 
