@@ -10,21 +10,38 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+
+/**
+ * This is an example of how to use the KCommand library.
+ *
+ * @version 1.0
+ */
 public class PluginCommand extends JavaPlugin {
 
-    @Override
-    public void onEnable() {
-      final CommandManager manager = CommandManager.getInstance();
+  /**
+   * You have to register commands for the CommandManager to execute them.
+   */
+  @Override
+  public void onEnable() {
+    final CommandManager manager = CommandManager.getInstance();
 
-      manager.registerCommands(this, this);
-    }
+    manager.registerCommands(this, this);
+  }
 
+  /**
+   * This is an example of a command that says hello to the player.
+   * All of your methods must associate the first parameter with the SenderType enum.
+   * The first parameter is the sender of the command.
+   *
+   * @param player The player who executed the command.
+   * @param args The arguments of the command.
+   */
   @Command(name = {"hello", "hi"},
       description = "Say hello to the player",
       usage = "/hello",
       permissions = {"commands.hello"},
       sender = Command.SenderType.PLAYER_ONLY)
-  public void sayHelloCommand(final Player player) {
+  public void sayHelloCommand(final Player player, String[] args) {
     player.sendMessage("Hello, " + player.getName() + "!");
   }
 
@@ -33,7 +50,7 @@ public class PluginCommand extends JavaPlugin {
       usage = "/hello to <player>",
       permissions = {"commands.helloto"},
       sender = Command.SenderType.PLAYER_ONLY)
-  public void sayHelloToEveryBody(final Player player, String[] args) {
+  public void sayHelloTo(final Player player, String[] args) {
     Player target = Bukkit.getPlayer(args[0]);
     if (target == null) {
       player.sendMessage("The player " + args[0] + " is not online.");
@@ -44,13 +61,21 @@ public class PluginCommand extends JavaPlugin {
     target.sendMessage("Hello from " + player.getName() + "!");
   }
 
+  /**
+   * This is an example of a tab completion method.
+   * The method must return a list of strings.
+   * The first parameter is the player who's tabing.
+   *
+   * @param player The player who executed the command.
+   * @return A list of strings.
+   */
   @TabComplete(name = {"hello"})
-  public List<String> onTabComplete(final Player player, String[] args) {
+  public List<String> onTabComplete(final Player player) {
     return Collections.singletonList("to");
   }
 
   @TabComplete(name = {"hello.to"})
-  public List<String> onTabCompleteTo(final Player player, String[] args) {
+  public List<String> onTabCompleteTo(final Player player) {
     List<String> list = new ArrayList<>();
     for (Player p : Bukkit.getOnlinePlayers()) {
       list.add(p.getName());
