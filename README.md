@@ -20,6 +20,6 @@ See the exemple in [this class](https://github.com/IzeLeam/KCommand/blob/master/
 
 ## Project development
 
-Time spent: 51 hours
+Time spent: 9 hours
 Ressources used: Spigot API, Bukkit API, Java 8, Maven, IntelliJ IDEA
 Documentation used: Spigot forum, Bukkit forum, StackOverflow, Java documentation
